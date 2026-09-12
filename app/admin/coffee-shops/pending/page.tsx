@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache';
 export const revalidate = 0;
 
 export default async function AdminPendingPage() {
-  // Tambahkan await di sini
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -26,7 +25,6 @@ export default async function AdminPendingPage() {
   async function handleApprove(formData: FormData) {
     'use server';
     const id = formData.get('id') as string;
-    // Tambahkan await di sini
     const sb = await createClient();
     await sb.from('coffee_shops').update({ status: 'approved', is_verified: true }).eq('id', id);
     revalidatePath('/admin/coffee-shops/pending');
@@ -35,7 +33,6 @@ export default async function AdminPendingPage() {
   async function handleReject(formData: FormData) {
     'use server';
     const id = formData.get('id') as string;
-    // Tambahkan await di sini
     const sb = await createClient();
     await sb.from('coffee_shops').update({ status: 'rejected' }).eq('id', id);
     revalidatePath('/admin/coffee-shops/pending');
